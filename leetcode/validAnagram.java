@@ -39,3 +39,50 @@ class Solution {
         
     }
 }
+
+# 1.Sort
+
+public boolean isAnagram(String s, String t) {
+    if (s == t || s.equals(t)) {
+        return true;
+    }
+    char[] sArray = s.toCharArray();
+    Arrays.sort(sArray);
+    String sortedS = new String(sArray);
+    char[] tArray = t.toCharArray();
+    Arrays.sort(tArray);
+    String sortedT = new String(tArray);
+    return sortedS.equals(sortedT);
+}
+# 2.Hash Array
+
+public boolean isAnagram(String s, String t) {
+    int[] hash = new int[26];
+    for (int i = 0; i < s.length(); i++) {
+        hash[s.charAt(i) - 'a']++;
+    }
+    for (int i = 0; i < t.length(); i++) {
+        hash[t.charAt(i) - 'a']--;
+    }
+    for (int i = 0; i < hash.length; i++) {
+        if (hash[i] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+# 3.Prime
+
+private static final int[] PRIMES = new int[]{3, 5, 7, 11 ,13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+        73, 79, 83, 89, 97, 101, 107};
+public boolean isAnagram(String s, String t) {
+    return hash(s) == hash(t);
+}
+
+private long hash(String s) {
+    long hash = 1;
+    for (int i = 0; i < s.length(); i++) {
+        hash *= PRIMES[s.charAt(i) - 'a'];
+    }
+    return hash;
+}
